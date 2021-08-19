@@ -1,7 +1,7 @@
 /*
-	Name: ÃÜÂëÉú³ÉÆ÷ 
+	Name: å¯†ç ç”Ÿæˆå™¨ 
 	Copyright: 
-	Author: ÕÛÖñ×Ó 
+	Author: æŠ˜ç«¹å­ 
 	Date: 03/11/19 12:09
 	Description: 1.0
 */
@@ -32,16 +32,16 @@ char pwdch[]={
 	'e','f','g','h','i','j','k','l','m','n',
 	'o','p','q','r','s','t','u','v','w','x',
 	'y','z','!','@','#','$','%','^','&','*'
-};//ÃÜÂë×Ö·û¿â
+};//å¯†ç å­—ç¬¦åº“
  
-/*Ëæ»ú½çÏŞÅĞ¶Ï*/
+/*éšæœºç•Œé™åˆ¤æ–­*/
 void passwordStartEnd(int *start,int *end,int number,int big_letter,int small_letter,int character)
 {
 	if(0==(number||big_letter||small_letter||character))
 	{
-		printf("´íÎó,Ã»ÓĞËùÑ¡×Ö·û");		
+		printf("é”™è¯¯,æ²¡æœ‰æ‰€é€‰å­—ç¬¦");		
 	}
-	/*Ñ¡Ôñ×îĞ¡Ëæ»úÊı*/
+	/*é€‰æ‹©æœ€å°éšæœºæ•°*/
 	if(number)
 	{
 		*start=number_start;	
@@ -58,7 +58,7 @@ void passwordStartEnd(int *start,int *end,int number,int big_letter,int small_le
 	{
 		*start=character_start;
 	}
-	/*Ñ¡Ôñ×î´óËæ»úÊı*/
+	/*é€‰æ‹©æœ€å¤§éšæœºæ•°*/
 	if(character)
 	{
 		*end=character_end;	
@@ -76,31 +76,29 @@ void passwordStartEnd(int *start,int *end,int number,int big_letter,int small_le
 		*end=number_end;
 	}
 	/*
-		ÓÉÓÚÇ°ÆÚµÄ²»ºÏÀíÉè¼ÆÔì³É´úÂë½á¹¹»ìÂÒ 
+		ç”±äºå‰æœŸçš„ä¸åˆç†è®¾è®¡é€ æˆä»£ç ç»“æ„æ··ä¹± 
 	*/ 
  
 }
 char *runPassword(int number,int big_letter,int small_letter,int character,int password_len)
 {
-	Sleep(1000);
-	/*²ÎÊıµÄºÏÀíĞÔ¼ì²â*/
+	/*å‚æ•°çš„åˆç†æ€§æ£€æµ‹*/
 	if(password_len>max_len)
 	{
-		printf("ÃÜÂëµÄ³¤¶È³¬¹ı×î´óÏŞÖÆ\n");
+		printf("å¯†ç çš„é•¿åº¦è¶…è¿‡æœ€å¤§é™åˆ¶\n");
 	}
 	if(password_len<min_len)
 	{
-		printf("ÃÜÂëµÄ³¤¶ÈµÍÓÚ×îĞ¡ÏŞÖÆ\n");	
+		printf("å¯†ç çš„é•¿åº¦ä½äºæœ€å°é™åˆ¶\n");	
 	}
-	int start,end;//ÇóÈ¡Ëæ»úÊıµÄÉÏÏÂ½ç
-	passwordStartEnd(&start,&end,number,big_letter,small_letter,character);//Ñ°ÕÒ·¶Î§ 
-	srand((unsigned)time(NULL));//ÖÃËæ»úÊıÖÖ×Ó
+	int start,end;//æ±‚å–éšæœºæ•°çš„ä¸Šä¸‹ç•Œ
+	passwordStartEnd(&start,&end,number,big_letter,small_letter,character);//å¯»æ‰¾èŒƒå›´ 
 	int random;
-	char pwdstring[password_len+1]={0};
+	char *pwdstring = (char*)malloc(password_len+1); 
 	for(int i=0;i<password_len;i++)
 	{
 		do{
-			random=rand()%(end-start+1)+start;//Éú³ÉËæ»úÃÜÂë
+			random=rand()%(end-start+1)+start;//ç”Ÿæˆéšæœºå¯†ç 
 		}while(
 			!(
 			number&&number_start<=random&&random<=number_end||
@@ -111,15 +109,15 @@ char *runPassword(int number,int big_letter,int small_letter,int character,int p
 		);
 		pwdstring[i]=pwdch[random]; 
 	}
-	printf("%s\n",pwdstring);
 	return pwdstring;	
 } 
 int main()
 {
+    srand((unsigned)time(NULL));//ç½®éšæœºæ•°ç§å­
 	for(int i=0;i<10;i++)
 	{
-		runPassword(true,true,true,true,256); 
+		printf("%s\n",runPassword(true,true,true,true,256));
 	}
  
 	return 0;
-} 
+}
